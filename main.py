@@ -4,7 +4,7 @@ from typing import Annotated
 import models
 from database import SessionLocal
 from sqlalchemy.orm import Session
-from fastapi.middleware.cors import CORSMiddleware
+from fastapi.middleware.trustedhost import TrustedHostMiddleware
 
 app = FastAPI()
 
@@ -30,12 +30,7 @@ origins = [
 ]
 
 app.add_middleware(
-    CORSMiddleware,
-    allow_origins=origins,
-    allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
-)
+    TrustedHostMiddleware, allowed_hosts=origins)
 
 @app.get("/")
 async def index():
