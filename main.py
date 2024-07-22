@@ -4,7 +4,7 @@ from typing import Annotated
 import models
 from database import SessionLocal
 from sqlalchemy.orm import Session
-from fastapi.middleware.trustedhost import TrustedHostMiddleware
+from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI()
 
@@ -13,6 +13,8 @@ class IngresoBase(BaseModel):
     marca_carro: str
     sucursal: str
     aspirante: str
+
+
 def get_db():
     db = SessionLocal()
     try:
@@ -30,7 +32,13 @@ origins = [
 ]
 
 app.add_middleware(
-    TrustedHostMiddleware, allowed_hosts=origins)
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
 
 @app.get("/")
 async def index():
