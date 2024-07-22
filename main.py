@@ -25,7 +25,7 @@ db_dependency = Annotated[Session, Depends(get_db)]
 
 # Configuración de CORS
 origins = [
-    "http://localhost:5173",
+    "*"
     # Agrega otros orígenes si es necesario
 ]
 
